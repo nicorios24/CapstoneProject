@@ -10,8 +10,8 @@ library(nflplotR)
 #success = success rate of plays
 
 
-pbp <- load_pbp(2020:2025) #play by play from 2020-2025
-games <- load_schedules(2020:2025) #games/schedules from 2020-2025
+pbp <- load_pbp(2020:2026) #play by play from 2020-2026
+games <- load_schedules(2020:2026) #games/schedules from 2020-2026
 
 glimpse(pbp)
 
@@ -195,10 +195,10 @@ if(game_calibration > 0.5) {
   cat(away, "is predicted to WIN\n")
 }
 
-# Predict all 2025 games
+# Predict all 2026 games
 season_games <- games |>
-  filter(season == 2025) |>
-  select(game_id, home_team, away_team)
+  filter(season == 2026) |>
+  select(game_id, season, week, home_team, away_team)
 
 season_games <- season_games |>
   left_join(team_avg, by = c("home_team" = "posteam")) |>
@@ -292,7 +292,8 @@ season_predict |>
 
 season_predict_clean <- season_predict |>
   select(
-    game_id, home_team, away_team,
+    game_id, season, week,
+    home_team, away_team,
     home_win_prob, away_win_prob, 
     predicted_winner, actual_winner,
     correct
@@ -301,6 +302,26 @@ season_predict_clean <- season_predict |>
 write.csv(season_predict_clean, "season_predict_clean.csv", row.names = FALSE)
 
 summary(season_predict$home_score)
+
+games %>%
+  filter(season == 2026) %>%
+  count(week)
+
+pbp %>%
+  filter(season == 2026) %>%
+  count(week)
+
+season_predict %>%
+  count(week)
+
+max(games$week[games$season == 2026], na.rm = TRUE)
+
+max(pbp$week[pbp$season == 2026], na.rm = TRUE)
+
+max(season_predict$week, na.rm = TRUE)
+
+season_predict_clean %>%
+  count(week)
 
 # Plots
 
