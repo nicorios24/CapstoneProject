@@ -830,3 +830,10 @@ qb_2026_comparison <- qb_test %>%
   arrange(week, player_display_name)
 
 View(qb_2026_comparison)
+
+# Export 2026 QB predictions to CSV
+write.csv(
+  qb_2026_comparison,
+  "QB_2026_Neural_Network_Predictions.csv",
+  row.names = FALSE
+)

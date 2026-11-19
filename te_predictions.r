@@ -903,3 +903,10 @@ te_2026_metrics <- tibble(
 )
 
 te_2026_metrics
+
+# Export 2026 TE predictions to CSV
+write.csv(
+  te_2026_predictions_table,
+  "TE_2026_Neural_Network_Predictions.csv",
+  row.names = FALSE
+)

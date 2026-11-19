@@ -2922,3 +2922,10 @@ td_performance_comparison |>
     Precision = round(Precision * 100, 2),
     Recall = round(Recall * 100, 2)
   )
+
+# Export 2026 RB predictions to CSV
+write.csv(
+  rb_2026_results_updated,
+  "rb_2026_predictions.csv",
+  row.names = FALSE
+)
